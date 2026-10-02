@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #040508;
+    --foreground: #f8fafc;
+    --scroll-velocity: 0;
+  }
+}
+
+html {
+  scroll-behavior: auto;
+  background-color: #040508;
+  color: #f8fafc;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #040508;
+  color: #f8fafc;
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #00f0ff;
+  color: #000000;
+}
+
+/* ============================================
+   FILM GRAIN OVERLAY
+   ============================================ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  opacity: 0.08;
+  animation: grain 0.18s steps(1) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -2%); }
+  20% { transform: translate(2%, 1%); }
+  30% { transform: translate(-1%, 3%); }
+  40% { transform: translate(1%, -1%); }
+  50% { transform: translate(-3%, 2%); }
+  60% { transform: translate(2%, -3%); }
+  70% { transform: translate(-2%, 1%); }
+  80% { transform: translate(3%, -2%); }
+  90% { transform: translate(-1%, 3%); }
+}
+
+/* ============================================
+   CYBER GLASSMORPHIC UTILITIES
+   ============================================ */
+.cyber-glass {
+  background: rgba(8, 12, 24, 0.7);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(34, 211, 238, 0.15);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.cyber-glass-strong {
+  background: rgba(5, 8, 18, 0.85);
+  backdrop-filter: blur(30px) saturate(1.6);
+  -webkit-backdrop-filter: blur(30px) saturate(1.6);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  box-shadow: 
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -1px 0 rgba(0,240,255,0.05),
+    0 30px 60px rgba(0,0,0,0.5);
+}
+
+/* ============================================
+   GLOW UTILITIES
+   ============================================ */
+.cyber-glow-blue {
+  box-shadow: 0 0 25px rgba(10, 132, 255, 0.4), 0 0 60px rgba(10, 132, 255, 0.15);
+}
+
+.cyber-glow-cyan {
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.5), 0 0 60px rgba(0, 240, 255, 0.2);
+}
+
+.cyber-glow-purple {
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.4), 0 0 60px rgba(168, 85, 247, 0.15);
+}
+
+/* Text glow utilities */
+.text-glow-cyan {
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.7), 0 0 30px rgba(0, 240, 255, 0.4), 0 0 60px rgba(0, 240, 255, 0.2);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 15px rgba(10, 132, 255, 0.7), 0 0 30px rgba(10, 132, 255, 0.4);
+}
+
+.text-glow-white {
+  text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.2);
+}
+
+/* ============================================
+   CUSTOM CYBER SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #040508;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, rgba(10, 132, 255, 0.6), rgba(34, 211, 238, 0.4));
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, rgba(10, 132, 255, 0.9), rgba(0, 240, 255, 0.7));
+}
+
+/* ============================================
+   MARQUEE ANIMATION
+   ============================================ */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+}
+
+/* ============================================
+   FLOATING PARTICLES KEYFRAME
+   ============================================ */
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.4;
+  }
+  25% {
+    transform: translateY(-18px) translateX(8px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-8px) translateX(-6px);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translateY(-22px) translateX(12px);
+    opacity: 0.8;
+  }
+}
+
+/* ============================================
+   SCROLL VELOCITY SKEW
+   ============================================ */
+.scroll-velocity-skew {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ============================================
+   HOLOGRAPHIC SCAN LINE 
+   ============================================ */
+@keyframes scanline {
+  0% { transform: translateY(-5%); }
+  100% { transform: translateY(105%); }
+}
+
+.scanline-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline-effect::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 240, 255, 0.04) 51%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ============================================
+   TERMINAL CURSOR BLINK
+   ============================================ */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.1em;
+  background: #00F0FF;
+  animation: cursor-blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  box-shadow: 0 0 8px #00F0FF;
+}
+
+/* ============================================
+   3D PERSPECTIVE UTILITIES
+   ============================================ */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1400 {
+  perspective: 1400px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* ============================================
+   GRADIENT BORDER ANIMATION
+   ============================================ */
+@keyframes border-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.3), inset 0 0 15px rgba(34, 211, 238, 0.05);
+    border-color: rgba(34, 211, 238, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(10, 132, 255, 0.5), inset 0 0 20px rgba(10, 132, 255, 0.1);
+    border-color: rgba(10, 132, 255, 0.6);
+  }
+}
+
+.border-glow-animate {
+  animation: border-glow 4s ease-in-out infinite;
+}
+
+/* ============================================
+   CHROMATIC ABERRATION CSS FILTER UTILITY
+   ============================================ */
+.chromatic-aberration {
+  filter: 
+    drop-shadow(1px 0 0 rgba(255, 0, 0, 0.3)) 
+    drop-shadow(-1px 0 0 rgba(0, 0, 255, 0.3));
+}
+
+/* ============================================
+   TILT CARD 3D STYLE
+   ============================================ */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: box-shadow 0.3s ease;
+}
+
+.tilt-card-inner {
+  transform: translateZ(20px);
+}
+
+/* ============================================
+   SECTION DIVIDER
+   ============================================ */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(34, 211, 238, 0.4), rgba(10, 132, 255, 0.4), transparent);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+}
+
+/* ============================================
+   GRID BACKGROUND PATTERN
+   ============================================ */
+.cyber-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(34, 211, 238, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* ============================================
+   NEON TEXT FLICKER
+   ============================================ */
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(0, 240, 255, 0.3);
+  }
+  20%, 24%, 55% {
+    opacity: 0.7;
+    text-shadow: none;
+  }
+}
+
+.neon-flicker {
+  animation: neon-flicker 5s infinite;
+}
+
+/* ============================================
+   KINETIC LETTER ANIMATION
+   ============================================ */
+@keyframes letter-reveal {
+  0% {
+    transform: translateY(100%) rotateX(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+.letter-reveal {
+  display: inline-block;
+  animation: letter-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transform-origin: bottom center;
+}
+
+/* ============================================
+   HOLOGRAPHIC SHIMMER
+   ============================================ */
+@keyframes holo-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.holo-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 20%,
+    rgba(0, 240, 255, 0.15) 50%,
+    transparent 80%
+  );
+  background-size: 200% auto;
+  animation: holo-shimmer 3s linear infinite;
+}
+
+/* ============================================
+   BUTTON RIPPLE EFFECT
+   ============================================ */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.2) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-ripple:hover::after {
+  opacity: 1;
+}

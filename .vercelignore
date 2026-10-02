@@ -1,0 +1,10 @@
+# Files and folders to ignore during Vercel deployment
+_cinematic_ref/
+PROFILE-CAMEO/
+profile cameo/
+anti_ps_ref.md
+ps4_ref.md
+.git/
+node_modules/
+.next/
+*.log
